@@ -1,6 +1,6 @@
 NAME := tama
 
-SOURCES := src/dummy.ml
+SOURCES := Engine.mli Engine.ml dummy.ml
 
 LIBS := -I +sdl bigarray.cma sdl.cma -cclib "-framework Cocoa"
 
@@ -37,13 +37,13 @@ $(NAME).opt: $(OPTOBJS)
 .SUFFIXES: .ml .mli .cmo .cmi .cmx
 
 .ml.cmo:
-	$(CAMLC) -c $<
+	$(CAMLC) $(LIBS) -c $<
 
 .mli.cmi:
-	$(CAMLC) -c $<
+	$(CAMLC) $(LIBS) -c $<
 
 .ml.cmx:
-	$(CAMLOPT) -c $<
+	$(CAMLOPT) $(LIBS:.cma=.cmxa) -c $<
 
 clean:
 	rm -f **/*.cm[iox] **/*.o *~ .*~
