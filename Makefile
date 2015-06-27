@@ -1,23 +1,12 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: fdaudre- <fdaudre-@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2015/06/27 13:37:39 by fdaudre-          #+#    #+#              #
-#    Updated: 2015/06/27 15:11:56 by fdaudre-         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 
 # PERSO #
 NAME		=	tama
 BINDIR		=	bin
 
 
-VPATH		+=	src
-SRC			=	main.ml
+VPATH		+=	src:src/code
+SRC			=	Engine.mli Engine.ml	\
+				main.ml
 
 
 OBJDIR		=	obj
@@ -28,13 +17,13 @@ CAMLOPT		=	ocamlopt
 CAMLDEP		=	ocamldep
 
 
-# DONT TOUCH ! #
 LIB			=	
 
 
 
-OPTOBJ		=	$(addprefix $(OBJDIR)/, $(SRC:.ml=.cmx) )
-BYTOBJ		=	$(addprefix $(OBJDIR)/, $(SRC:.ml=.cmo) )
+# DONT TOUCH ! #
+OPTOBJ		=	$(addprefix $(OBJDIR)/, $($(SRC:.mli=.ml):.ml=.cmx) )
+BYTOBJ		=	$(addprefix $(OBJDIR)/, $($(SRC:.mli=.ml):.ml=.cmo) )
 
 .PHONY: $(OBJDIR)/depend
 
