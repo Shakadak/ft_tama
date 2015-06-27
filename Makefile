@@ -46,7 +46,7 @@ $(NAME).opt: $(OPTOBJS)
 	$(CAMLOPT) $(LIBS:.cma=.cmxa) -c $<
 
 clean:
-	rm -f **/*.cm[iox] **/*.o *~ .*~
+	rm -f *.cm[iox] *.o *~ .*~
 
 fclean: clean
 	rm -f $(NAME)
@@ -57,5 +57,7 @@ depend: .depend
 	$(CAMLDEP) $(SOURCES) > .depend
 
 re: fclean all
+
+release: all clean
 
 include .depend
