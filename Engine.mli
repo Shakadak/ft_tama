@@ -2,7 +2,6 @@ type t
 
 type action     = Eat | Thunder | Bath | Kill
 
-val new         :   unit -> t
 
 val set_action  :   t -> action -> t
 

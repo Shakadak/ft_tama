@@ -1,72 +1,61 @@
+NAME := tama
 
-# PERSO #
-NAME		=	tama
-BINDIR		=	bin
+SOURCES := src/dummy.ml
 
+LIBS := -I +sdl bigarray.cma sdl.cma -cclib "-framework Cocoa"
 
-VPATH		+=	src:src/code
-SRC			=	Engine.mli Engine.ml	\
-				main.ml
+CAMLC := ocamlc
+CAMLOPT := ocamlopt
+CAMLDEP := ocamldep
 
+OBJS := $(SOURCES:.ml=.cmo)
+OPTOBJS = $(SOURCES:.ml=.cmx)
 
-OBJDIR		=	obj
+.PHONY: .depend
 
+.SUFFIXES:
 
-CAMLC		=	ocamlc
-CAMLOPT		=	ocamlopt
-CAMLDEP		=	ocamldep
-
-
-LIB			=	
-
-
-
-# DONT TOUCH ! #
-OPTOBJ		=	$(addprefix $(OBJDIR)/, $($(SRC:.mli=.ml):.ml=.cmx) )
-BYTOBJ		=	$(addprefix $(OBJDIR)/, $($(SRC:.mli=.ml):.ml=.cmo) )
-
-.PHONY: $(OBJDIR)/depend
-
+.SUFFIXES: .ml .mli .cmo .cmi .cmx
 
 all: depend $(NAME)
 
 $(NAME): opt byt
-	ln -fs $(BINDIR)/$(NAME).opt $(NAME)
+	ln -sf $(NAME).byt $(NAME)
 
-opt: $(BINDIR)/$(NAME).opt
+opt: $(NAME).opt
 
-byt: $(BINDIR)/$(NAME).byt
+byt: $(NAME).byt
 
-$(BINDIR)/$(NAME).opt: $(OPTOBJ)
-	@mkdir -p $(BINDIR)
-	$(CAMLOPT) -o $@ $(LIB:.cma=.cmxa) $(OPTOBJ)
+$(NAME).byt: $(OBJS)
+	$(CAMLC) -o $@ $(LIBS) $(OBJS)
 
-$(BINDIR)/$(NAME).byt: $(BYTOBJ)
-	@mkdir -p $(BINDIR)
-	$(CAMLC) -o $@ $(LIBS) $(BYTOBJ)
+$(NAME).opt: $(OPTOBJS)
+	$(CAMLOPT) -o $@ $(LIBS:.cma=.cmxa) $(OPTOBJS)
 
-$(OBJDIR)/%.cmx: %.ml
-	@mkdir -p $(OBJDIR)
-	$(CAMLOPT) -o $@ -c $<
+.SUFFIXES:
 
-$(OBJDIR)/%.cmo: %.ml
-	@mkdir -p $(OBJDIR)
-	$(CAMLC) -o $@ -c $<
+.SUFFIXES: .ml .mli .cmo .cmi .cmx
 
+.ml.cmo:
+	$(CAMLC) -c $<
 
-depend: $(OBJDIR)/depend
-	@mkdir -p $(OBJDIR)
-	$(CAMLDEP) $(SRC) > $<
+.mli.cmi:
+	$(CAMLC) -c $<
 
+.ml.cmx:
+	$(CAMLOPT) -c $<
 
 clean:
-	rm -rf $(OBJDIR)
+	rm -f **/*.cm[iox] **/*.o *~ .*~
 
 fclean: clean
-	rm -rf $(BINDIR)
 	rm -f $(NAME)
+	rm -f $(NAME).opt
+	rm -f $(NAME).byt
+
+depend: .depend
+	$(CAMLDEP) $(SOURCES) > .depend
 
 re: fclean all
 
-
-include $(OBJDIR)/depend
+include .depend
