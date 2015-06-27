@@ -1,8 +1,10 @@
 NAME := tama
 
-SOURCES := dummy.ml
+SOURCES := Draw.mli \
+	Draw.ml \
+	dummy.ml
 
-LIBS := -I +sdl bigarray.cma sdl.cma sdlgfx.cma -cclib "-framework Cocoa"
+LIBS := -I +sdl bigarray.cma sdl.cma sdlgfx.cma sdlttf.cma -cclib "-framework Cocoa"
 
 CAMLC := ocamlc
 CAMLOPT := ocamlopt
@@ -59,5 +61,8 @@ depend: .depend
 re: fclean all
 
 release: all clean
+
+run: all
+	./tama
 
 include .depend
