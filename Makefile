@@ -2,7 +2,7 @@ NAME := tama
 
 SOURCES := dummy.ml
 
-LIBS := -I +sdl bigarray.cma sdl.cma -cclib "-framework Cocoa"
+LIBS := -I +sdl bigarray.cma sdl.cma sdlgfx.cma -cclib "-framework Cocoa"
 
 CAMLC := ocamlc
 CAMLOPT := ocamlopt
