@@ -1,13 +1,15 @@
 type t
+type action         =   None | Eat | Thunder | Bath | Kill
+type millisecond    =   int
+type percent        =   float
 
-type action     = Eat | Thunder | Bath | Kill
 
+val get_new         :   millisecond -> t
 
-val set_action  :   t -> action -> t
+val update_action   :   t -> action -> millisecond -> t
+val get_action      :   t -> millisecond -> (action * percent)
 
-val get_action  :   t -> action
-
-val health      :   t -> int
-val energy      :   t -> int
-val hygiene     :   t -> int
-val happy       :   t -> int
+val health          :   t -> int
+val energy          :   t -> int
+val hygiene         :   t -> int
+val happy           :   t -> int
