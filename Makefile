@@ -1,6 +1,7 @@
 NAME := tama
 
-SOURCES := Draw.mli \
+SOURCES := Engine.mli Engine.ml \
+	Draw.mli \
 	Draw.ml \
 	dummy.ml
 
