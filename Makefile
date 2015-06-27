@@ -1,6 +1,6 @@
 NAME := tama
 
-SOURCES := Engine.mli Engine.ml dummy.ml
+SOURCES := dummy.ml
 
 LIBS := -I +sdl bigarray.cma sdl.cma -cclib "-framework Cocoa"
 
@@ -20,7 +20,7 @@ OPTOBJS = $(SOURCES:.ml=.cmx)
 all: depend $(NAME)
 
 $(NAME): opt byt
-	ln -sf $(NAME).byt $(NAME)
+	ln -sf $(NAME).opt $(NAME)
 
 opt: $(NAME).opt
 
