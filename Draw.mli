@@ -20,3 +20,5 @@ val background : Sdlvideo.surface -> Sdlvideo.surface -> unit
 (* Fill the entire surface with the surface provided *)
 
 val pet : Sdlvideo.surface -> Engine.action -> unit
+
+val game_over : Sdlvideo.surface -> Sdlttf.font -> unit
