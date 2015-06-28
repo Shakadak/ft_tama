@@ -109,4 +109,16 @@ module StatBar =
             ; draw screen font30 Happy (Engine.happy tama)
     end
 
+module Pet =
+    struct
+        let thunder = Sdlloader.load_image "data/Thunder.png"
+        let kill = Sdlloader.load_image "data/Kill.png"
+        let none = Sdlloader.load_image "data/None.png"
+    end
+
 let background screen scene = Sdlvideo.blit_surface scene screen ()
+
+let pet screen = function
+    | Engine.Thunder  -> Sdlvideo.blit_surface Pet.thunder screen ()
+    | Engine.Kill     -> Sdlvideo.blit_surface Pet.kill screen ()
+    | _               -> Sdlvideo.blit_surface Pet.none screen ()

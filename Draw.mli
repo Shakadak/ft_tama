@@ -17,4 +17,6 @@ module StatBar :
     end
 
 val background : Sdlvideo.surface -> Sdlvideo.surface -> unit
-(* Fill the entire surface with the color provided *)
+(* Fill the entire surface with the surface provided *)
+
+val pet : Sdlvideo.surface -> Engine.action -> unit

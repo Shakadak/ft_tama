@@ -9,6 +9,7 @@ let print_action = function
 
 let rec loop screen font30 ui tama scene =
     Draw.background screen scene
+    ; Draw.pet screen (fst (Engine.get_action tama (Sdltimer.get_ticks ())))
     ; Draw.Button.all ui
     ; Draw.StatBar.all screen font30 tama
     ; Sdlvideo.flip screen
