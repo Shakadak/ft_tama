@@ -40,19 +40,42 @@ let get_new time =
 let update_action (tama:t) act t =
     let ((hea, ene, hyg, hap), (cur, t0, ti)) = tama in
     let elapsed = t - ti in
-    let perct = Time.percent cur (float_of_int t) (float_of_int t0) in
+    let perct = Time.percent cur (float_of_int t0) (float_of_int t) in
+    let verify (hea0, ene0, hyg0, hap0) =
+        let hea1 =
+            if hea0 < 0 then 0
+            else if hea0 > 200 then 200
+            else hea0
+        in
+        let ene1 =
+            if ene0 < 0 then 0
+            else if ene0 > 200 then 200
+            else ene0
+        in
+        let hyg1 =
+            if hyg0 < 0 then 0
+            else if hyg0 > 200 then 200
+            else hyg0
+        in
+        let hap1 =
+            if hap0 < 0 then 0
+            else if hap0 > 200 then 200
+            else hap0
+        in
+        (hea1, ene1, hyg1, hap1)
+    in
     let apply = function
-        | None      ->  (hea - 1,   ene    ,    hyg    ,    hap    )
-        | Eat       ->  (hea + 10,  ene - 4,    hyg - 8,    hap + 2)
-        | Thunder   ->  (hea - 8,   ene + 10,   hyg,        hap - 8)
-        | Bath      ->  (hea - 8,   ene - 4,    hyg + 10,   hap + 2)
-        | Kill      ->  (hea - 20,  ene - 10,   hyg,        hap + 20)
+        | None      ->  verify (hea - 1,   ene    ,    hyg    ,    hap    )
+        | Eat       ->  verify (hea + 10,  ene - 4,    hyg - 8,    hap + 2)
+        | Thunder   ->  verify (hea - 8,   ene + 10,   hyg,        hap - 8)
+        | Bath      ->  verify (hea - 8,   ene - 4,    hyg + 10,   hap + 2)
+        | Kill      ->  verify (hea - 20,  ene - 10,   hyg,        hap + 20)
     in
     let init_action () =
         (apply act, (act, t, t))
     in
     let update_action () =
-        if perct >= 100. && act <> None then
+        if perct >= 100. && cur <> None then
             init_action ()
         else if elapsed < 500 then
             tama
@@ -93,10 +116,10 @@ let happy (tama:t) =
 
 let is_dead (tama:t) =
     let ((hea, ene, hyg, hap), _) = tama in
-    if hea = 0 || ene = 0 || hyg = 0 || hap = 0 then
-        true
+    if hea <= 0 || ene <= 0 || hyg <= 0 || hap <= 0 then
+        begin true end
     else
-        false
+        begin false end
 
 
 
@@ -118,7 +141,9 @@ let load time =
     let hyg = int_of_string (input_line ifile) in
     let hap = int_of_string (input_line ifile) in
     close_in ifile
-    ;((hea, ene, hyg, hap), (None, time, time))
+    ;let tama = ((hea, ene, hyg, hap), (None, time, time)) in
+    if is_dead tama then get_new time
+    else tama
     end with
     | _ ->  print_endline "Erreur: cannot load the game"
     ;get_new time
