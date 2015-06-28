@@ -113,6 +113,8 @@ module Pet =
     struct
         let thunder = Sdlloader.load_image "data/Thunder.png"
         let kill = Sdlloader.load_image "data/Kill.png"
+        let eat = Sdlloader.load_image "data/Eat.png"
+        let bath = Sdlloader.load_image "data/Bath.png"
         let none = Sdlloader.load_image "data/None.png"
     end
 
@@ -124,12 +126,16 @@ let get_pos screen pet =
     in Sdlvideo.rect ((ws - wp) / 2) ((hs - hp) / 2) 0 0
 
 let pet screen = function
-    | Engine.Thunder  ->
+    | Engine.Thunder    ->
             Sdlvideo.blit_surface ~src:Pet.thunder ~dst:screen
     ~dst_rect:(get_pos screen Pet.thunder) ()
-    | Engine.Kill     -> Sdlvideo.blit_surface ~src:Pet.kill ~dst:screen
-    ~dst_rect:(get_pos screen Pet.kill) ()
-    | _               -> Sdlvideo.blit_surface ~src:Pet.none ~dst:screen
+    | Engine.Eat        -> Sdlvideo.blit_surface ~src:Pet.eat ~dst:screen
+    ~dst_rect:(get_pos screen Pet.eat) ()
+    | Engine.Kill       -> Sdlvideo.blit_surface ~src:Pet.kill ~dst:screen
+    ~dst_rect:(get_pos screen Pet.eat) ()
+    | Engine.Bath       -> Sdlvideo.blit_surface ~src:Pet.bath ~dst:screen
+    ~dst_rect:(get_pos screen Pet.bath) ()
+    | _                 -> Sdlvideo.blit_surface ~src:Pet.none ~dst:screen
     ~dst_rect:(get_pos screen Pet.none) ()
 
 let game_over screen font =

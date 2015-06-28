@@ -33,8 +33,8 @@ let () =
     ; at_exit Sdl.quit
     ; at_exit Sdlttf.quit
     ; let screen = Sdlvideo.set_video_mode 1024 600 []
-                in let font = Sdlttf.open_font "hacked/HACKED.ttf" 42
-    in let font30 = Sdlttf.open_font "hacked/HACKED.ttf" 30
+                in let font = Sdlttf.open_font "data/hacked/HACKED.ttf" 42
+    in let font30 = Sdlttf.open_font "data/hacked/HACKED.ttf" 30
                 in let eat = Draw.Button.eat screen font (844, 10)
     in let thunder = Draw.Button.thunder screen font (844, 70)
                 in let bath = Draw.Button.bath screen font (844, 130)
