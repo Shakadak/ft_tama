@@ -8,5 +8,11 @@ module Button :
         val kill : button
     end
 
+module StatBar :
+    sig
+        type stat = Health | Energy | Hygiene | Happy
+        val draw : Sdlvideo.surface -> Sdlttf.font -> stat -> int -> unit
+    end
+
 val background : Sdlvideo.surface -> Sdlvideo.color -> unit
 (* Fill the entire surface with the color provided *)
