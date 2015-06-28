@@ -23,7 +23,7 @@ module Time = struct
         | Kill      ->  2.
 
     let percent act t0 t =
-        (t -. t0) *. (get act) /. 20.
+        (t -. t0) /. (5. *. get act)
 
 end
 
