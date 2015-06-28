@@ -88,3 +88,33 @@ let hygiene (tama:t) =
 let happy (tama:t) =
     match tama with
     | ((_, _, _, happy), _)     ->  (happy:int)
+
+
+
+let is_dead (tama:t) =
+    let ((hea, ene, hyg, hap), _) = tama in
+    if hea = 0 || ene = 0 || hyg = 0 || hap = 0 then
+        true
+    else
+        false
+
+
+
+let save (tama:t) =
+    let ((hea, ene, hyg, hap), _) = tama in
+    let ofile = open_out "save.itama" in
+    output_string ofile ((string_of_int hea) ^ "\n")
+    ;output_string ofile ((string_of_int ene) ^ "\n")
+    ;output_string ofile ((string_of_int hyg) ^ "\n")
+    ;output_string ofile ((string_of_int hap) ^ "\n")
+    ;output_string ofile ("END")
+    ;close_out ofile
+
+let load time =
+    let ifile = open_in "save.itama" in
+    let hea = int_of_string (input_line ifile) in
+    let ene = int_of_string (input_line ifile) in
+    let hyg = int_of_string (input_line ifile) in
+    let hap = int_of_string (input_line ifile) in
+    close_in ifile
+    ;((hea, ene, hyg, hap), (None, time, time))

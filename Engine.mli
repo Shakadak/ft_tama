@@ -13,3 +13,8 @@ val health          :   t -> int
 val energy          :   t -> int
 val hygiene         :   t -> int
 val happy           :   t -> int
+
+val is_dead         :   t -> bool
+
+val save            :   t -> unit
+val load            :   millisecond -> t
