@@ -46,7 +46,6 @@ module StatBar =
         (*let font = Sdlttf.open_font "hacked/HACKED.ttf" 42*)
 
         let draw screen font st value =
-            let e_const = exp 1. in
             let (x, y, label) =
                 match st with
                 | Health    ->  (20, 100, "Health")
@@ -59,11 +58,6 @@ module StatBar =
                 let hei =
                     let x_func = ((float_of_int i) /. 100.) -. 2. in
                     int_of_float ((exp x_func) *. 30.)
-                in
-                let linear_interpolate src aim factor =
-                    let s = float_of_int src in
-                    let a = float_of_int aim in
-                    int_of_float ((a -. s) *. factor +. s)
                 in
                 let exp_interpolate src aim factor =
                     let s = float_of_int src in
