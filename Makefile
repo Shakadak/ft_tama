@@ -1,10 +1,9 @@
 NAME := tama
 
-SOURCES := Engine.mli Engine.ml \
-	Draw.mli \
-	Draw.ml \
-	Event.mli Event.ml \
-	main.ml
+SOURCES :=	Engine.mli Engine.ml \
+			Draw.mli Draw.ml \
+			Event.mli Event.ml \
+			main.ml
 
 LIBS := -I +sdl bigarray.cma sdl.cma sdlgfx.cma sdlttf.cma sdlloader.cma -cclib "-framework Cocoa"
 
