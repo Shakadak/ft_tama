@@ -131,3 +131,11 @@ let pet screen = function
     ~dst_rect:(get_pos screen Pet.kill) ()
     | _               -> Sdlvideo.blit_surface ~src:Pet.none ~dst:screen
     ~dst_rect:(get_pos screen Pet.none) ()
+
+let game_over screen font =
+    let (w, h, _) = Sdlvideo.surface_dims screen
+    in let rect = Sdlvideo.rect 0 0 w h
+    in let text = Sdlttf.render_text_solid font "GAME OVER" Sdlvideo.white
+    in Sdlvideo.fill_rect ~rect:rect screen (Sdlvideo.map_RGB screen Sdlvideo.black)
+    ; Sdlvideo.blit_surface ~src:text ~dst:screen ~dst_rect:(get_pos screen
+    text) ()
