@@ -1,14 +1,14 @@
 type action = Press of Engine.action | Release of Engine.action | Quit
 
-let check_button (x, y) range =
-    let r_x = range.Sdlvideo.r_x
-    in let r_y = range.Sdlvideo.r_x
-    in r_x <= x && x <= r_x + range.Sdlvideo.r_w
-    && r_y <= y && y <= r_y + range.Sdlvideo.r_h
+let check_button (x, y) rect =
+    let r_x = rect.Sdlvideo.r_x
+    in let r_y = rect.Sdlvideo.r_y
+    in r_x <= x && x <= r_x + rect.Sdlvideo.r_w
+    && r_y <= y && y <= r_y + rect.Sdlvideo.r_h
 
 let retrieve_button coord buttons =
     List.fold_left
-    (fun acc (rect, action) ->
+    (fun acc (_, _, rect, action) ->
         if check_button coord rect
         then action
         else acc) Engine.None buttons
