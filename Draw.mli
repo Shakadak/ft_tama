@@ -6,12 +6,14 @@ module Button :
         val thunder : button
         val bath : button
         val kill : button
+        val all : (('a -> unit) * 'a * 'b * 'c) list -> unit
     end
 
 module StatBar :
     sig
         type stat = Health | Energy | Hygiene | Happy
         val draw : Sdlvideo.surface -> Sdlttf.font -> stat -> int -> unit
+        val all : Sdlvideo.surface -> Sdlttf.font -> Engine.t -> unit
     end
 
 val background : Sdlvideo.surface -> Sdlvideo.color -> unit

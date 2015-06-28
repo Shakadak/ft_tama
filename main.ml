@@ -9,11 +9,8 @@ let print_action = function
 
 let rec loop screen font30 ui tama =
     Draw.background screen (244, 244, 230)
-    ; List.iter (fun (button, colors, field, action) -> button colors) ui
-    ; Draw.StatBar.draw screen font30 Draw.StatBar.Health (Engine.health tama)
-    ; Draw.StatBar.draw screen font30 Draw.StatBar.Energy (Engine.energy tama)
-    ; Draw.StatBar.draw screen font30 Draw.StatBar.Hygiene (Engine.hygiene tama)
-    ; Draw.StatBar.draw screen font30 Draw.StatBar.Happy (Engine.happy tama)
+    ; Draw.Button.all ui
+    ; Draw.StatBar.all screen font30 tama
     ; Sdlvideo.flip screen
     ; let time = Sdltimer.get_ticks ()
     in match Event.get_action ui with

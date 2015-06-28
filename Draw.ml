@@ -37,6 +37,11 @@ module Button =
         let kill screen font coordinate colors =
             let label = Sdlttf.render_text_solid font "KILL" (fst colors)
             in draw screen coordinate label colors
+
+        let all buttons = List.iter
+        (fun (button, colors, field, action) ->
+            button colors)
+        buttons
     end
 
 module StatBar =
@@ -96,6 +101,12 @@ module StatBar =
                     ~dst_rect:(Sdlvideo.rect (x - 10) (y - 50) 0 0) ()
             ;Sdlvideo.fill_rect ~rect:small_border screen border_color
             ;Sdlvideo.fill_rect ~rect:big_border screen border_color
+
+        let all screen font30 tama =
+            draw screen font30 Health (Engine.health tama)
+            ; draw screen font30 Energy (Engine.energy tama)
+            ; draw screen font30 Hygiene (Engine.hygiene tama)
+            ; draw screen font30 Happy (Engine.happy tama)
     end
 
 let background screen c = Sdlvideo.fill_rect screen (Sdlvideo.map_RGB screen c)
