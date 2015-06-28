@@ -1,13 +1,13 @@
-module Shape =
+module Button =
     struct
-        let button = (137 + 8 + 4, 45 + 4 + 2)
+        let size = (137 + 8 + 4, 45 + 4 + 2)
         (* THUNDER width + inner +*)
     end
 
 let background screen c = Sdlvideo.fill_rect screen (Sdlvideo.map_RGB screen c)
 
 let button screen (x, y) label (foreground, background) =
-    let (w, h) = Shape.button
+    let (w, h) = Button.size
     in let outer = Sdlvideo.rect x y (w) (h)
     in let middle = Sdlvideo.rect (x + 1) (y + 1) (w - 2) (h - 2)
     in let inner = Sdlvideo.rect (x + 3) (y + 3) (w - 6) (h - 6)
