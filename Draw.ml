@@ -1,19 +1,23 @@
 module Button =
     struct
-        let size = (137 + 8 + 4, 45 + 4 + 2)
-        (* THUNDER width + inner +*)
+        let w = 137 + 8 + 4
+        let h = 45 + 4 + 2
+        let size = (w, h)
+        (** THUNDER width + inner *)
+
+        let outer x y = Sdlvideo.rect x y w h
+        let middle x y = Sdlvideo.rect (x + 1) (y + 1) (w - 2) (h - 2)
+        let inner x y = Sdlvideo.rect (x + 3) (y + 3) (w - 6) (h - 6)
+        let text x y tw = Sdlvideo.rect (x + (w - tw) / 2) (y + 4) 0 0
+
+        let thunder font color = Sdlttf.render_text_solid font "THUNDER" color
     end
 
 let background screen c = Sdlvideo.fill_rect screen (Sdlvideo.map_RGB screen c)
 
 let button screen (x, y) label (foreground, background) =
-    let (w, h) = Button.size
-    in let outer = Sdlvideo.rect x y (w) (h)
-    in let middle = Sdlvideo.rect (x + 1) (y + 1) (w - 2) (h - 2)
-    in let inner = Sdlvideo.rect (x + 3) (y + 3) (w - 6) (h - 6)
-    in let (lw, _, _) = Sdlvideo.surface_dims label
-    in let text = Sdlvideo.rect (x + (w - lw) / 2) (y + 4) 0 0
-    in Sdlvideo.fill_rect ~rect:outer screen foreground
-    ; Sdlvideo.fill_rect ~rect:middle screen background
-    ; Sdlvideo.fill_rect ~rect:inner screen foreground
-    ; Sdlvideo.blit_surface ~src:label ~dst:screen ~dst_rect:text ()
+    let (lw, _, _) = Sdlvideo.surface_dims label
+    in Sdlvideo.fill_rect ~rect:(Button.outer x y) screen foreground
+    ; Sdlvideo.fill_rect ~rect:(Button.middle x y) screen background
+    ; Sdlvideo.fill_rect ~rect:(Button.inner x y) screen foreground
+    ; Sdlvideo.blit_surface ~src:label ~dst:screen ~dst_rect:(Button.text x y lw) ()
