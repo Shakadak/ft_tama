@@ -111,6 +111,7 @@ let save (tama:t) =
     ;close_out ofile
 
 let load time =
+    try begin
     let ifile = open_in "save.itama" in
     let hea = int_of_string (input_line ifile) in
     let ene = int_of_string (input_line ifile) in
@@ -118,3 +119,6 @@ let load time =
     let hap = int_of_string (input_line ifile) in
     close_in ifile
     ;((hea, ene, hyg, hap), (None, time, time))
+    end with
+    | _ ->  print_endline "Erreur: cannot load the game"
+    ;get_new time
