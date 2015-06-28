@@ -1,5 +1,8 @@
 module Button =
     struct
+        type button = Sdlvideo.surface -> Sdlttf.font -> (int * int)
+        -> (Sdlvideo.color * Sdlvideo.color) -> unit
+
         let w = 137 + 8 + 4
         let h = 45 + 4 + 2
         let size = (w, h)
@@ -19,19 +22,19 @@ module Button =
             ; Sdlvideo.fill_rect ~rect:(inner x y) screen background
             ; Sdlvideo.blit_surface ~src:label ~dst:screen ~dst_rect:(text x y lw) ()
 
-        let eat screen coordinate font colors =
+        let eat screen font coordinate colors =
             let label = Sdlttf.render_text_solid font "EAT" (fst colors)
             in draw screen coordinate label colors
 
-        let thunder screen coordinate font colors =
+        let thunder screen font coordinate colors =
             let label = Sdlttf.render_text_solid font "THUNDER" (fst colors)
             in draw screen coordinate label colors
 
-        let bath screen coordinate font colors =
+        let bath screen font coordinate colors =
             let label = Sdlttf.render_text_solid font "BATH" (fst colors)
             in draw screen coordinate label colors
 
-        let kill screen coordinate font colors =
+        let kill screen font coordinate colors =
             let label = Sdlttf.render_text_solid font "KILL" (fst colors)
             in draw screen coordinate label colors
     end

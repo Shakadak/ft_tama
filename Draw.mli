@@ -1,13 +1,11 @@
 module Button :
     sig
-        val eat : Sdlvideo.surface -> (int * int) -> Sdlttf.font
+        type button = Sdlvideo.surface -> Sdlttf.font -> (int * int)
         -> (Sdlvideo.color * Sdlvideo.color) -> unit
-        val thunder : Sdlvideo.surface -> (int * int) -> Sdlttf.font
-        -> (Sdlvideo.color * Sdlvideo.color) -> unit
-        val bath : Sdlvideo.surface -> (int * int) -> Sdlttf.font
-        -> (Sdlvideo.color * Sdlvideo.color) -> unit
-        val kill : Sdlvideo.surface -> (int * int) -> Sdlttf.font
-        -> (Sdlvideo.color * Sdlvideo.color) -> unit
+        val eat : button
+        val thunder : button
+        val bath : button
+        val kill : button
     end
 
 val background : Sdlvideo.surface -> Sdlvideo.color -> unit

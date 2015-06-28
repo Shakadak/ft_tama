@@ -25,10 +25,10 @@ let main () =
     ; let font = Sdlttf.open_font "hacked/HACKED.ttf" 42
     in let (w, h) = Sdlttf.size_text font "THUNDER"
     in print_int w ; print_char ' ' ; print_int h ; print_endline " w, h"
-    ; Draw.Button.eat a (10, 10) font (Sdlvideo.white, Sdlvideo.black)
-    ; Draw.Button.thunder a (60, 60) font (Sdlvideo.white, Sdlvideo.black)
-    ; Draw.Button.bath a (110, 110) font (Sdlvideo.white, Sdlvideo.black)
-    ; Draw.Button.kill a (160, 160) font (Sdlvideo.black, Sdlvideo.white)
+    ; Draw.Button.eat a font (10, 10) (Sdlvideo.white, Sdlvideo.black)
+    ; Draw.Button.thunder a font (60, 60) (Sdlvideo.white, Sdlvideo.black)
+    ; Draw.Button.bath a font (110, 110) (Sdlvideo.white, Sdlvideo.black)
+    ; Draw.Button.kill a font (160, 160) (Sdlvideo.black, Sdlvideo.white)
     ; Sdlvideo.update_rect a
     ; wait_for_escape ()
     ; Sdlttf.quit ()
