@@ -42,7 +42,7 @@ let update_action (tama:t) act t =
     let elapsed = t - ti in
     let perct = Time.percent cur (float_of_int t) (float_of_int t0) in
     let apply = function
-        | None      ->  (hea - 1,   ene - 1,    hyg - 1,    hap - 1)
+        | None      ->  (hea - 1,   ene    ,    hyg    ,    hap    )
         | Eat       ->  (hea + 10,  ene - 4,    hyg - 8,    hap + 2)
         | Thunder   ->  (hea - 8,   ene + 10,   hyg,        hap - 8)
         | Bath      ->  (hea - 8,   ene - 4,    hyg + 10,   hap + 2)
