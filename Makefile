@@ -37,12 +37,12 @@ $(NAME).opt: $(OPTOBJS)
 
 .SUFFIXES:
 
-.SUFFIXES: .ml .mli .cmo .cmi .cmx
-
-.ml.cmo:
-	$(CAMLC) $(LIBS) -c $<
+.SUFFIXES: .mli .ml .cmo .cmi .cmx
 
 .mli.cmi:
+	$(CAMLC) $(LIBS) -c $<
+
+.ml.cmo:
 	$(CAMLC) $(LIBS) -c $<
 
 .ml.cmx:
