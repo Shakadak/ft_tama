@@ -18,7 +18,7 @@ OPTOBJS = $(SOURCES:.ml=.cmx)
 
 .SUFFIXES:
 
-.SUFFIXES: .ml .mli .cmo .cmi .cmx
+.SUFFIXES: .mli .ml .cmo .cmi .cmx
 
 all: depend $(NAME)
 
