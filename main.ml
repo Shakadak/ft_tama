@@ -7,19 +7,21 @@ let print_action = function
     | Engine.Bath -> print_endline "Bath"
     | Engine.Kill -> print_endline "Kill"
 
-let rec loop screen font30 ui tama =
-    Draw.background screen (244, 244, 230)
+let rec loop screen font30 ui tama scene =
+    Draw.background screen scene
     ; Draw.Button.all ui
     ; Draw.StatBar.all screen font30 tama
     ; Sdlvideo.flip screen
     ; let time = Sdltimer.get_ticks ()
     in match Event.get_action ui with
     | None -> loop screen font30 ui (Engine.update_action tama Engine.None time)
+    scene
     | Some(Event.Quit) -> Engine.save tama
-    | Some(Event.Press(action) | Event.Release(action)) -> let tama = Engine.update_action tama action time
-        in let ui = List.map (fun (b, c, f, a) -> (b, (if a = action then swap c
-        else c), f, a)) ui
-        in loop screen font30 ui tama
+    | Some(Event.Press(action) | Event.Release(action)) ->
+            let tama = Engine.update_action tama action time
+            in let ui = List.map (fun (b, c, f, a) -> (b, (if a = action then swap c
+            else c), f, a)) ui
+            in loop screen font30 ui tama scene
 
 let () =
     Sdl.init [`VIDEO]
@@ -38,5 +40,6 @@ let () =
     ; (bath, (Sdlvideo.white, Sdlvideo.black), Sdlvideo.rect 844 130 149 51, Engine.Bath)
     ; (kill, (Sdlvideo.white, Sdlvideo.black), Sdlvideo.rect 844 190 149 51,
     Engine.Kill)]
+    in let scene = Sdlloader.load_image "data/background.png"
     in let tama = Engine.load (Sdltimer.get_ticks ())
-    in loop screen font30 ui tama
+    in loop screen font30 ui tama scene

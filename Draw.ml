@@ -109,4 +109,4 @@ module StatBar =
             ; draw screen font30 Happy (Engine.happy tama)
     end
 
-let background screen c = Sdlvideo.fill_rect screen (Sdlvideo.map_RGB screen c)
+let background screen scene = Sdlvideo.blit_surface scene screen ()

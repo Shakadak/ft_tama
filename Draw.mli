@@ -16,5 +16,5 @@ module StatBar :
         val all : Sdlvideo.surface -> Sdlttf.font -> Engine.t -> unit
     end
 
-val background : Sdlvideo.surface -> Sdlvideo.color -> unit
+val background : Sdlvideo.surface -> Sdlvideo.surface -> unit
 (* Fill the entire surface with the color provided *)
