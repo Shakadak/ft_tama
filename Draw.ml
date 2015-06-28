@@ -118,7 +118,16 @@ module Pet =
 
 let background screen scene = Sdlvideo.blit_surface scene screen ()
 
+let get_pos screen pet =
+    let (ws, hs, _) = Sdlvideo.surface_dims screen
+    in let (wp, hp, _) = Sdlvideo.surface_dims pet
+    in Sdlvideo.rect ((ws - wp) / 2) ((hs - hp) / 2) 0 0
+
 let pet screen = function
-    | Engine.Thunder  -> Sdlvideo.blit_surface Pet.thunder screen ()
-    | Engine.Kill     -> Sdlvideo.blit_surface Pet.kill screen ()
-    | _               -> Sdlvideo.blit_surface Pet.none screen ()
+    | Engine.Thunder  ->
+            Sdlvideo.blit_surface ~src:Pet.thunder ~dst:screen
+    ~dst_rect:(get_pos screen Pet.thunder) ()
+    | Engine.Kill     -> Sdlvideo.blit_surface ~src:Pet.kill ~dst:screen
+    ~dst_rect:(get_pos screen Pet.kill) ()
+    | _               -> Sdlvideo.blit_surface ~src:Pet.none ~dst:screen
+    ~dst_rect:(get_pos screen Pet.none) ()
